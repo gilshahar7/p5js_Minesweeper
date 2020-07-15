@@ -179,8 +179,8 @@ function draw() {
   text(columnsSlider.value() + ' Columns', columnsSlider.x * 2 + columnsSlider.width, columnsSlider.y + columnsSlider.height/1.5);
   text(rowsSlider.value() + ' Rows', rowsSlider.x * 2 + rowsSlider.width, rowsSlider.y + rowsSlider.height/1.5);
   text(bombsSlider.value() + ' Mines', bombsSlider.x * 2 + bombsSlider.width, bombsSlider.y + bombsSlider.height/1.5);
-  text(time + ' Seconds', 600, rowsSlider.y);
-  text(flagged + ' Flagged', 600, rowsSlider.y + rowsSlider.height);
+  text(time + '  🕔', 625, rowsSlider.y);
+  text(flagged + '  🚩', 625, rowsSlider.y + rowsSlider.height);
 
 }
 
