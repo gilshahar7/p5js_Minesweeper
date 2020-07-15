@@ -44,6 +44,7 @@ function setup() {
     button.style("font-size", "25px");
   }
   time = 0;
+  flagged = 0;
   button.position(450, rowsSlider.value()*25+20);
   rowsSlider.position(10, (rowsSlider.value()*25)+30);
   columnsSlider.position(10,(rowsSlider.value()*25)+10); // x and y
