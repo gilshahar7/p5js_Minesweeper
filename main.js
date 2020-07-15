@@ -216,7 +216,7 @@ function checkWin(){
       }
     }
   }
-  if (rows*cols - revealed == bombs || correctFlags == bombs) {
+  if (rows*cols - revealed == bombs || (correctFlags == bombs && correctFlags == flagged)) {
     gameState = 1;
     gameOver();
   }
