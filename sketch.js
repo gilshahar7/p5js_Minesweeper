@@ -28,10 +28,10 @@ function setup() {
     rowsSlider = createSlider(3, 35, 16);
     rowsSlider.size(300, 20);
 
-    columnsSlider = createSlider(3, 75, 30); // min, max, start
+    columnsSlider = createSlider(3, 76, 30); // min, max, start
     columnsSlider.size(300, 20); // width and height
 
-    bombsSlider = createSlider(1, 250, 99);
+    bombsSlider = createSlider(1, 300, 99);
     bombsSlider.size(300, 20);
 
     slidersAlreadySetup = true;
@@ -52,8 +52,11 @@ function setup() {
   cols = columnsSlider.value();
   rows = rowsSlider.value();
   bombs = bombsSlider.value();
-
-  createCanvas((cols*25)+1,(rows*25)+1+80)
+  if(cols < 30){
+    createCanvas((29*25)+1,(rows*25)+1+80)
+  }else{
+    createCanvas((cols*25)+1,(rows*25)+1+80)
+  }
   textAlign(CENTER, CENTER);
   board = make2DArray(cols,rows);
   tempArr = new Array(cols*rows);
@@ -85,7 +88,7 @@ function setup() {
 }
 
 function draw() {
-  background(100)
+  background(170)
   textAlign(CENTER);
   if (rightPressed) {
     if(mouseX < (cols*25)+1 && mouseY < (rows*25)+1){
