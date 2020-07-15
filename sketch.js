@@ -1,9 +1,12 @@
 var cols = 30
 var rows = 16
-var bombs = 99  
+var bombs = 50
 var rightPressed = false;
-// var slidersAlreadySetup = false;
+var slidersAlreadySetup = false;
+var rowsSlider, columnsSlider, bombsSlider, button;
 var gameState;
+var time = 0;
+var flagged = 0;
 
 function make2DArray(rows,cols){
   arr = new Array(rows)
@@ -15,8 +18,42 @@ function make2DArray(rows,cols){
 
 var board;
 
+
+
+
 function setup() {
-  createCanvas((cols*25)+1,(rows*25)+1)
+
+  if(slidersAlreadySetup == false){
+    setInterval(timeIt, 1000);
+    rowsSlider = createSlider(3, 35, 16);
+    rowsSlider.size(300, 20);
+
+    columnsSlider = createSlider(3, 75, 30); // min, max, start
+    columnsSlider.size(300, 20); // width and height
+
+    bombsSlider = createSlider(1, 250, 99);
+    bombsSlider.size(300, 20);
+
+    slidersAlreadySetup = true;
+    button = createButton("Start!");
+
+    button.mouseClicked(setup);
+    button.size(100,40);
+
+    button.style("font-family", "Bodoni");
+    button.style("font-size", "25px");
+  }
+  time = 0;
+  button.position(450, rowsSlider.value()*25+20);
+  rowsSlider.position(10, (rowsSlider.value()*25)+30);
+  columnsSlider.position(10,(rowsSlider.value()*25)+10); // x and y
+  bombsSlider.position(10, (rowsSlider.value()*25)+50);
+
+  cols = columnsSlider.value();
+  rows = rowsSlider.value();
+  bombs = bombsSlider.value();
+
+  createCanvas((cols*25)+1,(rows*25)+1+80)
   textAlign(CENTER, CENTER);
   board = make2DArray(cols,rows);
   tempArr = new Array(cols*rows);
@@ -45,38 +82,25 @@ function setup() {
       }
     }
   }
-
-
-  // if(slidersAlreadySetup == false){
-  //   columnsSliders = createSlider(1, 50, 30); // min, max, start
-  //   columnsSliders.position(0,400); // x and y
-  //   columnsSliders.size(400, 20); // width and height
-  //
-  //   rowsSlider = createSlider(1, 50, 16);
-  //   rowsSlider.position(0, 430);
-  //   rowsSlider.size(400, 20);
-  //
-  //   bombsSlider = createSlider(0, 150, 99);
-  //   bombsSlider.position(0, 460);
-  //   bombsSlider.size(400, 20);
-  //
-  //   slidersAlreadySetup = true;
-  // }
 }
 
 function draw() {
   background(100)
+  textAlign(CENTER);
   if (rightPressed) {
     if(mouseX < (cols*25)+1 && mouseY < (rows*25)+1){
       var tile = board[int(mouseX/25)][int(mouseY/25)];
       if(tile.isFlagged){
         tile.isFlagged = false;
+        flagged--;
       }else if(tile.isRevealed == false){
         tile.isFlagged = true;
+        flagged++;
       }
 
     }
     rightPressed = false
+    checkWin()
   }
   for (var i = 0; i < board.length; i++) {
     for (var j = 0; j < board[i].length; j++) {
@@ -147,6 +171,23 @@ function draw() {
       }
     }
   }
+  noStroke();
+  textStyle(BOLD);
+  textAlign(LEFT);
+  textSize(15);
+  fill(0)
+  text(columnsSlider.value() + ' Columns', columnsSlider.x * 2 + columnsSlider.width, columnsSlider.y + columnsSlider.height/1.5);
+  text(rowsSlider.value() + ' Rows', rowsSlider.x * 2 + rowsSlider.width, rowsSlider.y + rowsSlider.height/1.5);
+  text(bombsSlider.value() + ' Mines', bombsSlider.x * 2 + bombsSlider.width, bombsSlider.y + bombsSlider.height/1.5);
+  text(time + ' Seconds', 600, rowsSlider.y);
+  text(flagged + ' Flagged', 600, rowsSlider.y + rowsSlider.height);
+
+}
+
+function timeIt() {
+  if(gameState == null){
+    time++;
+  }
 }
 
 function gameOver(){
@@ -159,14 +200,19 @@ function gameOver(){
 }
 
 function checkWin(){
-  var count = 0;
+  var revealed = 0;
+  var correctFlags = 0;
   for (var i = 0; i < board.length; i++) {
     for (var j = 0; j < board[i].length; j++) {
-      if(board[i][j].isRevealed)
-        count++;
+      if(board[i][j].isRevealed){
+        revealed++;
+      }
+      if(board[i][j].isBomb && board[i][j].isFlagged){
+        correctFlags++;
+      }
     }
   }
-  if (rows*cols - count == bombs) {
+  if (rows*cols - revealed == bombs || correctFlags == bombs) {
     gameState = 1;
     gameOver();
   }
