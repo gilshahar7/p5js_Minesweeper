@@ -53,7 +53,7 @@ class Tile{
   }
   revealPool(){
     //console.log("revealNeighbors");
-    if(this.face != 0 || this.isBomb){
+    if(this.face != 0 || this.isBomb || this.isFlagged){
       return
     }
     if(this.isRevealed == true){
