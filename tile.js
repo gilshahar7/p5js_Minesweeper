@@ -63,42 +63,42 @@ class Tile{
     this.isRevealed = true
 
     if(this.x != 0){
-      if(board[this.x-1][this.y].face != 0){
+      if(board[this.x-1][this.y].face != 0 && board[this.x-1][this.y].isFlagged == false){
         board[this.x-1][this.y].isRevealed = true;
       }
     }
     if(this.x != cols-1){
-      if(board[this.x+1][this.y].face != 0){
+      if(board[this.x+1][this.y].face != 0 && board[this.x+1][this.y].isFlagged == false){
         board[this.x+1][this.y].isRevealed = true;
       }
     }
     if(this.y != 0){
-      if(board[this.x][this.y-1].face != 0){
+      if(board[this.x][this.y-1].face != 0 && board[this.x][this.y-1].isFlagged == false){
         board[this.x][this.y-1].isRevealed = true;
       }
     }
     if(this.y != rows-1){
-      if(board[this.x][this.y+1].face != 0){
+      if(board[this.x][this.y+1].face != 0 && board[this.x][this.y+1].isFlagged == false){
         board[this.x][this.y+1].isRevealed = true;
       }
     }
     if (this.x != 0 && this.y != 0) {
-      if(board[this.x-1][this.y-1].face != 0){
+      if(board[this.x-1][this.y-1].face != 0 && board[this.x-1][this.y-1].isFlagged == false){
         board[this.x-1][this.y-1].isRevealed = true;
       }
     }
     if (this.x != cols-1 && this.y != 0) {
-      if(board[this.x+1][this.y-1].face != 0){
+      if(board[this.x+1][this.y-1].face != 0 && board[this.x+1][this.y-1].isFlagged == false){
         board[this.x+1][this.y-1].isRevealed = true;
       }
     }
     if (this.x != 0 && this.y != rows-1) {
-      if(board[this.x-1][this.y+1].face != 0){
+      if(board[this.x-1][this.y+1].face != 0 && board[this.x-1][this.y+1].isFlagged == false){
         board[this.x-1][this.y+1].isRevealed = true;
       }
     }
     if (this.x != cols-1 && this.y != rows-1) {
-      if(board[this.x+1][this.y+1].face != 0){
+      if(board[this.x+1][this.y+1].face != 0 && board[this.x+1][this.y+1].isFlagged == false){
         board[this.x+1][this.y+1].isRevealed = true;
       }
     }
