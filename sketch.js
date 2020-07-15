@@ -1,6 +1,6 @@
 var cols = 30
 var rows = 16
-var bombs = 34  
+var bombs = 99  
 var rightPressed = false;
 // var slidersAlreadySetup = false;
 var gameState;
